@@ -14,7 +14,8 @@ jobs:
           git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
           git clone --depth=1 https://github.com/f763180872/xray-padavan-k2p.git /opt/k2p
           cp -R /opt/k2p/padavan/user/* /opt/rt-n56u/trunk/user/
-          ls -l /opt/rt-n56u/trunk/user/
+          cp /opt/k2p/k2p.config /opt/rt-n56u/trunk/configs/templates/K2P.config
+          cat /opt/rt-n56u/trunk/configs/templates/K2P.config
       - name: build
         run: |
           mkdir /opt/bin
