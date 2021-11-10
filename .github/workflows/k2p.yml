@@ -17,16 +17,13 @@ jobs:
           git clone --depth=1 https://github.com/hanwckf/rt-n56u.git /opt/rt-n56u
           cd /opt/rt-n56u/toolchain-mipsel
           sh dl_toolchain.sh
+          git clone --depth=1 https://github.com/f763180872/xray-padavan-k2p.git /opt/k2p
+          cp -R /opt/k2p/padavan/user/* /opt/rt-n56u/trunk/user/
+          # rm -rf /opt/rt-n56u/trunk/user/www/n56u_ribbon_fixed/bootstrap/js/bootstrap.js
+          # rm -rf /opt/rt-n56u/trunk/user/www/n56u_ribbon_fixed/bootstrap/js/engage.itoggle.js
+          # rm -rf /opt/rt-n56u/trunk/user/www/n56u_ribbon_fixed/bootstrap/css/bootstrap.css
           cd /opt/rt-n56u/trunk
-          wget https://raw.githubusercontent.com/f763180872/xray-padavan-k2p/master/k2p.config -O configs/templates/K2P.config
 
-          wget https://raw.githubusercontent.com/f763180872/xray-padavan-k2p/master/padavan/user/Makefile -O user/Makefile
-
-          # build-in xray
-          mkdir -p user/xray
-          wget -P user/xray/ https://raw.githubusercontent.com/f763180872/xray-padavan-k2p/master/padavan/xray/Makefile
-          sed -i 's/CONFIG_FIRMWARE_INCLUDE_V2RAY=y/CONFIG_FIRMWARE_INCLUDE_V2RAY=n/' configs/templates/K2P.config
-          sed -i 's/CONFIG_FIRMWARE_INCLUDE_XRAY=n/CONFIG_FIRMWARE_INCLUDE_XRAY=y/' configs/templates/K2P.config
           fakeroot ./build_firmware_modify K2P
           mv /opt/rt-n56u/trunk/images/*.trx /opt/bin/k2p_xray.trx
       - name: Upload artifact
