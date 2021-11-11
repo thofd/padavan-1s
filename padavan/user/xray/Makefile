@@ -4,7 +4,6 @@ XRAY_NAME = xray-linux-mipsle
 XRAY_URL = $(XRAY_URL_BASE)/$(XRAY_NAME).tar.gz
 
 all:download_xray file_extract
-  @echo "xray build done!"
 
 download_xray:
 	( if [ ! -f $(XRAY_NAME).tar.gz ]; then \
