@@ -24,6 +24,7 @@ jobs:
           sh dl_toolchain.sh
           cd /opt/rt-n56u/trunk
 
+          sed -i 's/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=n/CONFIG_FIRMWARE_INCLUDE_SHADOWSOCKS=y/g' ./build_firmware_modify
           fakeroot ./build_firmware_modify K2P
           mv /opt/rt-n56u/trunk/images/*.trx /opt/bin/k2p_xray.trx
       - name: Upload artifact
