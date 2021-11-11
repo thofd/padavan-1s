@@ -68,28 +68,28 @@
 			$j("#btn_aping_link").click(function () {
 				aping_dlink();
 			});
-			$j("#s5_aut").change(function() { 
+			$j("#s5_aut").change(function() {
 			if($j("#s5_aut").is(':checked')){
 			document.getElementById('s5_aut').value=1;
 			}else{
 			document.getElementById('s5_aut').value=0;
 			}
-			}); 
-			$j("#v2_tls").change(function() { 
+			});
+			$j("#v2_tls").change(function() {
 			if(document.getElementById('v2_tls').value != '0'){
 			showhide_div('row_tj_tls_host', 1);
-			}else{			
+			}else{
 			showhide_div('row_tj_tls_host', 0);
 			}
 			});
-			$j("#v2_mux").change(function() { 
+			$j("#v2_mux").change(function() {
 			if($j("#v2_mux").is(':checked')){
 			document.getElementById('v2_mux').value=1;
 			}else{
 			document.getElementById('v2_mux').value=0;
 			}
 			});
-			$j("#ssp_insecure").change(function() { 
+			$j("#ssp_insecure").change(function() {
 			if($j("#ssp_insecure").is(':checked')){
 			document.getElementById('ssp_insecure').value=1;
 			}else{
@@ -220,7 +220,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			showhide_div('row_s5_enable', 0);
 			showhide_div('row_s5_username', 0);
 			showhide_div('row_s5_password', 0);
-			
+
 			var b = document.form.ssp_type.value;
 			if (b == "ss") {
 				showhide_div('row_ss_password', 1);
@@ -305,6 +305,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				showhide_div('row_quic_security', 1);
 				showhide_div('row_quic_key', 1);
 				showhide_div('row_quic_header', 1);
+			} else if (b == "grpc") {
+				showhide_div('row_v2_webs_path', 1);
 			}
 		}
 		function switch_dns() {
@@ -477,7 +479,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 						//if(optionObj.ping != "failed"){   //过滤ping不通的节点
 						var text = '[ ' + (optionObj.type ? optionObj.type : "类型获取失败") + ' ] ' + (optionObj
 							.alias ? optionObj.alias : "名字获取失败"); // 判断下怕获取失败 ，括号是运算的问题
-						// 添加 
+						// 添加
 						nodeList.options.add(new Option(text, key.replace(keyStr, ''))); // 通过 replacce把不要的字符去掉
 						unodeList.options.add(new Option(text, key.replace(keyStr, ''))); // 通过 replacce把不要的字符去掉
 						s5nodeList.options.add(new Option(text, key.replace(keyStr, ''))); // 通过 replacce把不要的字符去掉
@@ -595,8 +597,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 							formatter: actionFormatter
 						}]
 					});
-				
-				
+
+
 		}
 		function cellStylesales(value, row, index) {
 			var ping = row.ping
@@ -679,7 +681,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			document.getElementById("ss_obfs_param").value = '';
 			//v2
 			document.getElementById("ssp_insecure").value = 0;
-			document.getElementById("ssp_insecure").checked = false;				
+			document.getElementById("ssp_insecure").checked = false;
 			document.getElementById("v2_mux").value = 0;
 			document.getElementById("v2_mux").checked = false;
 			document.getElementById("v2_security").value = 'auto';
@@ -711,7 +713,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			document.getElementById("v2_quic_key").value = '';
 			document.getElementById("v2_quic_guise").value = 'none';
 			document.getElementById("v2_quic_security").value = 'none';
-			//trojan				
+			//trojan
 			// document.getElementById("ssp_insecure").value = 0;
 			// document.getElementById("ssp_insecure").checked = false;
 			// document.getElementById("v2_tls").value = 1;
@@ -743,7 +745,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			} else if (type == "v2ray" || type == "xray") {
 				var transport = getProperty(ss, 'transport', 'tcp');
 				document.getElementById("ssp_insecure").value = getProperty(ss, 'insecure', 0);
-				document.getElementById("ssp_insecure").checked =  document.getElementById("ssp_insecure").value != 0;				
+				document.getElementById("ssp_insecure").checked =  document.getElementById("ssp_insecure").value != 0;
 				document.getElementById("v2_mux").value = getProperty(ss, 'mux', 0);
 				document.getElementById("v2_mux").checked =  document.getElementById("v2_mux").value != 0;
 				document.getElementById("v2_security").value = getProperty(ss, 'security', 'auto');
@@ -775,7 +777,9 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					document.getElementById("v2_quic_guise").value = getProperty(ss, 'quic_guise', 'none');
 					document.getElementById("v2_quic_key").value = getProperty(ss, 'quic_key', '');
 					document.getElementById("v2_quic_security").value = getProperty(ss, 'quic_security', 'none');
-				}
+				} else if (transport == "grpc") {
+          document.getElementById("v2_h2_path").value = getProperty(ss, 'h2_path', '');
+        }
 			} else if (type == "trojan") {
 				document.getElementById("ssp_insecure").value = getProperty(ss, 'insecure', 0);
 				document.getElementById("ssp_insecure").checked =  document.getElementById("ssp_insecure").value != 0;
@@ -856,7 +860,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				},
 				success: function (response) {
 					setTimeout("dtime();$j('#table99').bootstrapTable('refresh');document.getElementById('btn_ping_link').value='ping节点';",2000);
-					
+
 				}
 			});
 		}
@@ -1075,6 +1079,9 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					document.getElementById('v2_h2_host').value = ssm.host;
 					document.getElementById('v2_h2_path').value = ssm.path;
 				}
+				if (ssm.net == "grpc") {
+					document.getElementById('v2_h2_path').value = ssm.path;
+				}
 				if (ssm.tls == "tls") {
 					document.getElementById('v2_tls').value = '1';
 					//document.getElementById('v2_tls').checked = true;
@@ -1103,8 +1110,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				document.getElementById('ssp_server').value = serverPart[0];
 				document.getElementById('ssp_prot').value = port;
 				document.getElementById('v2_vmess_id').value = password;
-				document.getElementById('v2_alter_id').value = "0";		
-				
+				document.getElementById('v2_alter_id').value = "0";
+
 				ploc = sstr.indexOf("?");
 				if (ploc > 0) {
 					url0 = sstr.substr(0, ploc);
@@ -1118,13 +1125,13 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 						pdict[decodeURIComponent(b[0])] = decodeURIComponent(b[1] || '');
 					}
 				}
-				
+
 				document.getElementById('ssp_type').value = "xray";
 				document.getElementById('ssp_type').dispatchEvent(event);
-						
+
 				document.getElementById('v2_security').value = pdict['encryption'];
-				
-				
+
+
 				if (pdict['type'] == "tcp") {
 					if (pdict['guise'] != undefined) {
 					    document.getElementById('v2_tcp_guise').value = "http";
@@ -1146,13 +1153,16 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				}
 				document.getElementById('v2_transport').value = pdict['type'];
 				document.getElementById('v2_transport').dispatchEvent(event);
-				
+
 				if (pdict['type'] == "ws") {
 					document.getElementById('v2_ws_host').value = pdict['host'];
 					document.getElementById('v2_ws_path').value = pdict['path'];
 				}
 				if (pdict['type'] == "h2") {
 					document.getElementById('v2_h2_host').value = pdict['host'];
+					document.getElementById('v2_h2_path').value = pdict['path'];
+				}
+				if (pdict['type'] == "grpc") {
 					document.getElementById('v2_h2_path').value = pdict['path'];
 				}
 				if (pdict['security'] == "tls") {
@@ -1176,7 +1186,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					    {
 					    	document.getElementById('v2_flow').value = '0';
 					    }
-					    
+
 					}
 					else
 					{
@@ -1322,7 +1332,9 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 					DataObj.quic_guise = document.getElementById("v2_quic_guise").value;
 					DataObj.quic_key = document.getElementById("v2_quic_key").value;
 					DataObj.quic_security = document.getElementById("v2_quic_security").value;
-				}
+				} else if (document.getElementById("v2_transport").value == "grpc") {
+          DataObj.h2_path = document.getElementById("v2_h2_path").value;
+        }
 			} else if (type == "trojan") {
 				var DataObj = {
 					type: document.getElementById("ssp_type").value,
@@ -1348,7 +1360,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 			}
 			var post_dbus = JSON.stringify(DataObj)
 			var ids;
-			if (editing_ss_id == 0) {  
+			if (editing_ss_id == 0) {
 				node_global_max += 1;
 				ids = node_global_max;
 			} else {
@@ -1833,8 +1845,8 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 				<input type="button" id="btn_rest_link" class="btn btn-danger" value="删除所有订阅服务器节点" onclick="ddlink();">
 				</td>
 			</tr>
-												
-										
+
+
 													<tr>
 														<th colspan="2" style="background-color: #E3E3E3;">
 															<select name="ss_list_mode" style="display: none"
@@ -2097,6 +2109,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 																	<option value="ws">WebSocket</option>
 																	<option value="h2">HTTP/2</option>
 																	<option value="quic">QUIC</option>
+																	<option value="grpc">GRPC</option>
 																</select>
 															</td>
 														</tr>
@@ -2256,7 +2269,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 														<tr id="row_ssp_insecure" style="display:none;">
 															<th>allowInsecure</th>
 															<td>
-																<input type="checkbox" name="ssp_insecure" id="ssp_insecure" >		
+																<input type="checkbox" name="ssp_insecure" id="ssp_insecure" >
 															</td>
 														</tr>
 														<tr id="row_v2_tls" style="display:none;">
@@ -2267,7 +2280,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 																	<option value="1">tls</option>
 																	<option value="2">xtls</option>
 																</select>
-																
+
 															</td>
 														</tr>
 														<tr id="row_v2_flow" style="display:none;">
@@ -2278,7 +2291,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 																	<option value="1">xtls-rprx-direct</option>
 																	<option value="2">xtls-rprx-splice</option>
 																</select>
-																
+
 															</td>
 														</tr>
 														<tr id="row_tj_tls_host" style="display:none;">

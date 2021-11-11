@@ -7,10 +7,9 @@ local ssrindext = io.popen("dbus get ssconf_basic_json_" .. server_section)
 local servertmp = ssrindext:read("*all")
 local server = cjson.decode(servertmp)
 local v2ray = {
-log = {
-	-- error = "/var/ssrplus.log",
-	loglevel = "warning"
-},
+  log = {
+	  loglevel = "warning"
+  },
 	-- 传入连接
 	inbound = (local_port ~= "0") and {
 		port = local_port,
@@ -54,11 +53,11 @@ log = {
 				}
 			}
 		},
-	-- 底层传输配置
+	  -- 底层传输配置
 		streamSettings = {
 			network = server.transport,
 			security = (server.tls == '1') and "tls" or ((server.tls == '2') and "xtls" or "none"),
-			tlsSettings = (server.tls == '1') and 
+			tlsSettings = (server.tls == '1') and
 			{
 				allowInsecure = (server.insecure ~= "0") and true or false,
 				serverName=server.tls_host
@@ -110,6 +109,9 @@ log = {
 					type = server.quic_guise
 				}
 			} or nil
+      grpcSettings = (server.transport == "grpc") and {
+        serviceName = server.h2_path
+      } or nil
 		},
 		mux = {
 			enabled = (server.mux == "1") and true or false,
