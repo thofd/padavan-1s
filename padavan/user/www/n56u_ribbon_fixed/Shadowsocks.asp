@@ -2224,7 +2224,7 @@ setTimeout('document.getElementById("btn_ctime").style.display="none";',1000);
 															</td>
 														</tr>
 														<tr id="row_v2_http2_path" style="display:none;">
-															<th width="50%">HTTP/2 Path</th>
+															<th width="50%">HTTP2/GRPC Path</th>
 															<td>
 																<input type="text" class="input" size="15"
 																	name="v2_h2_path" id="v2_h2_path"
