@@ -11,11 +11,16 @@ download_xray:
 	fi )
 
 file_extract:
-	( if [ ! -d $(XRAY_NAME) ]; then \
-		tar xf $(XRAY_NAME).tar.gz; \
-		rm xray; \
-		mv xray_softfloat xray; \
-	fi )
+	(
+	  ls -l; \
+	  if [ ! -f xray ]; then \
+	    echo "unzip xray" \
+      tar xf $(XRAY_NAME).tar.gz; \
+      rm -rf xray; \
+      mv xray_softfloat xray; \
+	  fi \
+	  ls -l;
+	)
 
 clean:
   rm -rf $(XRAY_NAME).tar.gz
