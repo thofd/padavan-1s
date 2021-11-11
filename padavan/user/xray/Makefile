@@ -3,18 +3,19 @@ XRAY_URL_BASE = https://github.com/felix-fly/xray-openwrt/releases/latest/downlo
 XRAY_NAME = xray-linux-mipsle
 XRAY_URL = $(XRAY_URL_BASE)/$(XRAY_NAME).tar.gz
 
-all:download_xray file_extract
+all: download_xray file_extract
 
 download_xray:
 	( if [ ! -f $(XRAY_NAME).tar.gz ]; then \
-		wget -t5 --timeout=20 --no-check-certificate -O $(XRAY_NAME).tar.gz $(XRAY_URL); \
+	  echo "start download xray"; \
+		wget --no-check-certificate -O $(XRAY_NAME).tar.gz $(XRAY_URL); \
 	fi )
 
 file_extract:
 	(
 	  ls -l; \
 	  if [ ! -f xray ]; then \
-	    echo "unzip xray" \
+	    echo "unzip xray"; \
       tar xf $(XRAY_NAME).tar.gz; \
       rm -rf xray; \
       mv xray_softfloat xray; \
