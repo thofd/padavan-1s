@@ -1,8 +1,8 @@
-on:
-  push:
-    tags:
-      - v*
-#on: [push]
+#on:
+#  push:
+#    tags:
+#      - v*
+on: [push]
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -11,10 +11,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot kmod cpio git python3-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
-          git clone --depth=1 https://github.com/chongshengB/rt-n56u.git /opt/rt-n56u
+          git clone --depth=1 https://github.com/xumng123/rt-n56u.git /opt/rt-n56u
           git clone --depth=1 https://github.com/f763180872/xray-padavan-k2p.git /opt/k2p
-          rm -rf /opt/rt-n56u/trunk/user/shadowsocks
-          cp -R /opt/k2p/padavan/user/* /opt/rt-n56u/trunk/user/
+          #rm -rf /opt/rt-n56u/trunk/user/shadowsocks
+          #cp -R /opt/k2p/padavan/user/* /opt/rt-n56u/trunk/user/
           cp /opt/k2p/k2p.config /opt/rt-n56u/trunk/configs/templates/K2P.config
           cat /opt/rt-n56u/trunk/configs/templates/K2P.config
       - name: build
