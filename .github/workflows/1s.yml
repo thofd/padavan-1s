@@ -13,6 +13,7 @@ jobs:
           sudo apt-get -y install unzip libtool-bin curl cmake gperf gawk flex bison nano xxd fakeroot kmod cpio git python3-docutils gettext automake autopoint texinfo build-essential help2man pkg-config zlib1g-dev libgmp3-dev libmpfr-dev libncurses5-dev libltdl-dev wget libc-dev-bin
           git clone --depth=1 https://github.com/xumng123/rt-n56u.git /opt/rt-n56u
           git clone --depth=1 https://github.com/thofd/padavan-1s.git /opt/HC5661A
+          git clone --depth=1 https://github.com/f763180872/xray-padavan-k2p.git /opt/HC5661A
           cp /opt/HC5661A/HC5661A.config /opt/rt-n56u/trunk/configs/templates/HC5661A.config
           cat /opt/rt-n56u/trunk/configs/templates/HC5661A.config
       - name: build
